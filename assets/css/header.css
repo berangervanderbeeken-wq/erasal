@@ -1,0 +1,146 @@
+@import url("colors.css");
+
+.hamburger {
+    display: none;
+    border: none;
+}
+
+.hamburger span {
+    display: block;
+    width: 60%;
+    height: 2px;
+    background-color: var(--text-color);
+}
+
+header { 
+    display: grid;
+    position: sticky;
+    top: 20px;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    background-color: var(--bg-color);
+
+    margin-block: clamp(1rem, 4vw, 2rem);
+    margin-inline: clamp(1.25rem, 5vw, 2.25rem);
+
+    transition: top 0.3s ease-in-out;
+}
+
+header.disabled {
+    top: -200%;
+}
+
+.brand-logo {
+    grid-column: 1;
+    grid-row: 1;
+    display: inline;
+    margin-right: auto;
+}
+
+.brand-logo img {
+    display: block;
+    width: clamp(120px, 10vw + 3rem, 260px);
+    height: auto;
+}
+
+.navbar ul {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: center;
+    display: flex;
+    gap: clamp(10px, 1.2rem, 3rem);
+
+    list-style: none;
+}
+
+.navbar ul li a {
+    position: relative;
+    text-decoration: none;
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+
+.navbar ul a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--text-color);
+    transition: width 0.3s ease-in-out;
+
+    width: 0;
+    height: 2px;
+}
+
+.navbar ul a:hover::after {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+
+    header {
+        z-index: 1000;
+    }
+
+    .hamburger {
+        z-index: 1000;
+        grid-column: 2;
+        justify-self: end;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        cursor: pointer;
+
+        width: 60px;
+        height: 60px;
+
+        border-radius: 3px;
+        background-color: var(--bg-variant);
+    }
+
+    .hamburger.active {
+        position: fixed;
+        top: 0;
+        right: 0;
+    }
+
+    .navbar {
+        transform: translateX(200%);
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 100;
+
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+
+        width: 80vw;
+        height: 100vh;
+        transition: transform 0.4s ease-in-out;
+        background-color: var(--secondary-color-light);
+        opacity: 98%;
+    }
+
+    .navbar ul {
+        display: flex;
+        flex-direction: column;
+        margin-top: 140px;
+    }
+
+    .navbar ul a {
+        display: none;
+    }
+
+    .navbar.active ul a {
+        display: block;
+        color: var(--bg-color);
+    }
+
+    .navbar.active {
+        display: flex;
+        transform: translateX(0);
+    }
+}
